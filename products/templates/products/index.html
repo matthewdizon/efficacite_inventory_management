@@ -1,0 +1,30 @@
+{% block content %}
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Food Items</h1>
+        <p>A table of all food items</p>
+    </div>
+</section>
+
+<div class="col-12">
+    <table class="table table-striped" id="food_table">
+        <thead>
+            <th scope="col"> Food Name </th>
+            <th scope="col"> Description </th>
+            <th scope="col"> Price (₱) </th>
+            <th scope="col"> Date Created </th>
+            <th scope="col" class="no-sort"></th>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td> {{ product.name }} </td>
+                <td> {{ product.description }} </td>
+                <td> {{ product.price }} </td>
+                <td> {{ product.created_at }} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
