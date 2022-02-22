@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Benjamin's Grill House</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+            <a class="navbar-brand mb-0" href="/"><span style="color: #9179FA;">Benjamin's Grill House</span></a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mx-2">
+                    Dashboard
+                </li>
+                <li class="nav-item mx-2">
+                    Products
+                </li>
+                <li class="nav-item mx-2">
+                    Ingredients
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="container-fluid pt-3">
+            <div class="row">
+                <div class="col-10 justify-content-center mb-5">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        
+        <footer class="footer" style="position: fixed;">
+            <div class="container">Efficacite</div>
+        </footer>
+
+    </body>
+</html>
