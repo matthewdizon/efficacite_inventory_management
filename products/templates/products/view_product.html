@@ -1,0 +1,15 @@
+{% block content %}
+<div class="card w-75">
+    <div class="card-header">
+        Product Details: 
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><span>Food Name: </span> {{product.name}}</li>
+        <li class="list-group-item"><span>Description: </span> {{food.description}}</li>
+        <li class="list-group-item"><span>Price (₱): </span> {{product.price}}</li>
+        <li class="list-group-item"><span>Date Created: </span> {{product.created_at}}</li>
+    </ul>
+</div>
+
+<a href="{% url 'index' %}"><button class="btn btn-grabgrub">Back</button></a>
+{% endblock %}
