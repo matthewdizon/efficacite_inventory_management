@@ -1,0 +1,62 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/* Navbar CSS */
+
+nav {
+    background: rosybrown;
+
+    display: flex;
+    align-items: center;
+    min-height: 10vh;
+}
+
+nav ul {
+    display: flex;
+}
+
+nav a { 
+    margin: 0 12px;
+}
+
+/* Content Container */
+
+.content-container {
+    background: burlywood;
+    min-height: 80vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Footer CSS */
+
+footer {
+    background: rosybrown;
+    
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 10vh;
+}
+
+/* Products CSS */
+
+.products-hero {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 24px 0;
+}
