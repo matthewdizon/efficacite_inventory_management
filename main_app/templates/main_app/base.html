@@ -9,22 +9,65 @@
 
     <body>
         <nav class="navbar navbar-expand-lg navbar-light sticky-top">
-            <h1><a class="navbar-brand mb-0" href="/">Benjamin's Grill House</a></h1>
-            <a href="/#">Dashboard</a>
-            <a href="/products">Products</a>
-            <a href="/#">Ingredients</a>
+            <h1><a class="navbar-brand mb-0" href="/">BGHMIS</a></h1>
+            <a class="nav-link" href="/#">
+                <img src="https://cdn-icons.flaticon.com/png/512/2961/premium/2961545.png?token=exp=1645701022~hmac=85732b52774d5e87dcf2021983f54e21" alt="">
+                <p>Search</p>
+            </a>
+            <a class="nav-link" href="/#">
+                <img src="https://cdn-icons.flaticon.com/png/512/2961/premium/2961545.png?token=exp=1645701022~hmac=85732b52774d5e87dcf2021983f54e21" alt="">
+                <p>Inventory</p>
+            </a>
+            <a class="nav-link" href="/products">
+                <img src="https://cdn-icons.flaticon.com/png/512/2961/premium/2961545.png?token=exp=1645701022~hmac=85732b52774d5e87dcf2021983f54e21" alt="">
+                <p>Products</p>
+            </a>
+            <a class="nav-link" href="/#">
+                <img src="https://cdn-icons.flaticon.com/png/512/2961/premium/2961545.png?token=exp=1645701022~hmac=85732b52774d5e87dcf2021983f54e21" alt="">
+                <p>Suppliers</p>
+            </a>
+            <a class="nav-link" href="/#">
+                <img src="https://cdn-icons.flaticon.com/png/512/2961/premium/2961545.png?token=exp=1645701022~hmac=85732b52774d5e87dcf2021983f54e21" alt="">
+                <p>Orders</p>
+            </a>
+            <a class="nav-link" href="/#">
+                <img src="https://cdn-icons.flaticon.com/png/512/2961/premium/2961545.png?token=exp=1645701022~hmac=85732b52774d5e87dcf2021983f54e21" alt="">
+                <p>Profile</p>
+            </a>
+            <a class="nav-link" href="/#">
+                <img src="https://cdn-icons.flaticon.com/png/512/2961/premium/2961545.png?token=exp=1645701022~hmac=85732b52774d5e87dcf2021983f54e21" alt="">
+                <p>Settings</p>
+            </a>
+            <a class="nav-link" href="/#">
+                <img src="https://cdn-icons.flaticon.com/png/512/2961/premium/2961545.png?token=exp=1645701022~hmac=85732b52774d5e87dcf2021983f54e21" alt="">
+                <p>Log out</p>
+            </a>
+            <!-- <a class="nav-link" href="/#">Inventory</a>
+            <a class="nav-link" href="/products">Products</a>
+            <a class="nav-link" href="/#">Suppliers</a>
+            <a class="nav-link" href="/#">Profile</a>
+            <a class="nav-link" href="/#">Log out</a>
+            <a class="nav-link" href="/#">Orders</a>
+            <a class="nav-link" href="/#">Settings</a> -->
         </nav>
         
         <div class="content-container">
+            <div class="hero-content">
+                <h1>Benjamin's Grill House</h1>
+                <div class="user-details">
+                    <p>User Longname</p>
+                    <img src="https://i.redd.it/caywqzjjhp051.jpg" alt="Profile Picture">
+                </div>
+            </div>
             <div>
                 {% block content %}
                 {% endblock %}
             </div>
         </div>
         
-        <footer class="footer">
+        <!-- <footer class="footer">
             <div class="container">© 2021 Efficacite</div>
-        </footer>
+        </footer> -->
 
     </body>
 </html>

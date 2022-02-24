@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+
 body {
     margin: 0;
     padding: 0;
+    display: flex;
+    font-family: 'Mulish', sans-serif;
 }
 
 a {
@@ -11,30 +15,60 @@ a {
 /* Navbar CSS */
 
 nav {
-    background: rosybrown;
+    background: #590101;
 
     display: flex;
-    align-items: center;
-    min-height: 10vh;
-}
-
-nav ul {
-    display: flex;
+    flex-direction: column;
+    min-width: 15vw;
+    height: 100%;
+    position: fixed;
 }
 
 nav a { 
-    margin: 0 12px;
+    /* color: #DDE2FF; */
+    color: #A4A6B3;
+    margin: 0 24px;
+}
+
+.nav-link {
+    /* margin-top: 6px; */
+    /* margin-bottom: 12px; */
+    display: flex;
+    align-items: center;
+}
+
+.nav-link img {
+    height: 20px;
+    width: 20px;
+    margin-right: 12px;
 }
 
 /* Content Container */
 
 .content-container {
-    background: burlywood;
-    min-height: 80vh;
+    background: #F7F8FC;
+    margin-left: 15vw;
+    width: 100%;
+    height: 100%;
 
+    padding: 0 24px;
+}
+
+.hero-content {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+}
+
+.user-details {
+    display: flex;
     align-items: center;
+}
+
+.user-details img {
+    height: 44px;
+    border-radius: 50%;
+    border: 4px solid #DFE0EB;
+    margin-left: 12px;
 }
 
 /* Footer CSS */
