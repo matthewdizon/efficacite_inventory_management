@@ -37,7 +37,17 @@ nav a {
     align-items: center;
 }
 
-.nav-link img {
+.nav-link:hover {
+    color: #DDE2FF;
+}
+
+.nav-link:hover svg path {
+    /* filter: invert(86%) sepia(11%) saturate(1136%) hue-rotate(197deg) brightness(102%) contrast(104%); */
+    fill: #DDE2FF;
+    /* color: blue; */
+}
+
+.nav-link svg {
     height: 20px;
     width: 20px;
     margin-right: 12px;
