@@ -41,3 +41,18 @@ def view_product(request, pk):
     else:
         context = {"product":product, 'message':request.GET.get('message')}
     return render(request, 'products/view_product.html', context)
+
+def update_product(request, pk):
+    o = get_object_or_404(Order, pk=pk)
+    o_qty = request.POST.get('qty')
+    o_pmethod = request.POST.get('pmethod')
+    order_objects = Order.objects.all()
+    account_objects = Account.objects.all()
+
+
+    if(request.method=="POST"):
+        Order.objects.filter(pk=pk).update(qty = o_qty, payment_mode = o_pmethod)
+        return render(request, 'GrabGrub_App/order_list.html', {'order':order_objects, 'accounts':account_objects})
+
+    else:
+        return render(request, 'GrabGrub_App/update_order.html', {'o': o})
