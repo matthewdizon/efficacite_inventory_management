@@ -3,15 +3,38 @@
 {% block content %}
 <div class="card w-75">
     <div class="card-header">
-        Product Details: 
+        Enter Product Details: 
     </div>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item"><span>Food Name: </span> {{product.name}}</li>
-        <li class="list-group-item"><span>Description: </span> {{food.description}}</li>
-        <li class="list-group-item"><span>Price (₱): </span> {{product.price}}</li>
-        <li class="list-group-item"><span>Date Created: </span> {{product.created_at}}</li>
-    </ul>
-</div>
+    <form method="POST" action="{% url 'update_product' %}" style="padding-left: 10; padding-right: 10;">{% csrf_token %}
+        <div class="d-flex flex-row mt-2">
+            <div class="form-group w-50">
+                <label for="name" > Product Name: </label>
+                <input type="text" class="form-control" id="proname" name="proname" required>
+            </div>
 
-<a href="{% url 'index' %}"><button class="btn btn-grabgrub">Back</button></a>
+            <div class="form-group w-50 mx-4">
+                <label for="name"> Description: </label>
+                <input type="text" class="form-control" id="prodesc" name="prodesc" required>
+            </div>
+        </div>
+
+        <div class="d-flex flex-row">
+            <div class="form-group w-50">
+                <label for="name"> Price (₱): </label>
+                <input type="number" min="1" class="form-control" id="proprice" name="proprice" required>
+            </div>
+
+            <div class="form-group w-50 mx-4">
+                <label for="name" > Date Created: </label>
+                <input type="datetime-local" class="form-control" id="prodate" name="prodate" required>
+            </div>
+        </div>
+
+        <input type="hidden" name="message" value="Food Updated successfully">
+
+        <a href="{% url 'update_product' %}"><button type="submit" class="btn btn-dark-grabgrub float-right mr-4" >Update Product</button></a>
+
+    </form>
+</div>
+<a href="{% url 'index' %}"><button class="btn btn-grabgrub mt-3">Back</button></a>
 {% endblock %}

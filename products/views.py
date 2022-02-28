@@ -42,17 +42,21 @@ def view_product(request, pk):
         context = {"product":product, 'message':request.GET.get('message')}
     return render(request, 'products/view_product.html', context)
 
-def update_product(request, pk):
-    o = get_object_or_404(Order, pk=pk)
-    o_qty = request.POST.get('qty')
-    o_pmethod = request.POST.get('pmethod')
-    order_objects = Order.objects.all()
-    account_objects = Account.objects.all()
-
-
+def update_food(request, pk):
+    
     if(request.method=="POST"):
-        Order.objects.filter(pk=pk).update(qty = o_qty, payment_mode = o_pmethod)
-        return render(request, 'GrabGrub_App/order_list.html', {'order':order_objects, 'accounts':account_objects})
+        try:
+            prodname = request.POST.get('proname')
+            proddesc = request.POST.get('prodesc')
+            prodprice = request.POST.get('proprice')
+            proddate = request.POST.get('prodate')
+            prod = get_object_or_404(Product, pk=pk)
+            Product.objects.filter(pk=pk).update(name=prodname, description=proddesc, price=prodprice, created_at=proddate)
+            return redirect('view_product', pk=pk)
+        except:
+            messages.error(request, 'Please update the details!')
+            return render(request, 'products/update_product.html', {'f':prod})
 
     else:
-        return render(request, 'GrabGrub_App/update_order.html', {'o': o})
+        prod = get_object_or_404(Product, pk=pk)
+        return render(request, 'products/update_product.html', {'f':prod})
