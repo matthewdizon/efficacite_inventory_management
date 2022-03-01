@@ -60,3 +60,8 @@ def update_food(request, pk):
     else:
         prod = get_object_or_404(Product, pk=pk)
         return render(request, 'products/update_product.html', {'f':prod})
+
+def delete_product(request, pk):
+    product = Product.objects.get(pk=pk)
+    product.delete()
+    return redirect(f"/products")
