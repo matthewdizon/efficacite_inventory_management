@@ -42,7 +42,7 @@ def view_product(request, pk):
         context = {"product":product, 'message':request.GET.get('message')}
     return render(request, 'products/view_product.html', context)
 
-def update_food(request, pk):
+def update_product(request, pk):
     
     if(request.method=="POST"):
         try:
@@ -55,11 +55,13 @@ def update_food(request, pk):
             return redirect('view_product', pk=pk)
         except:
             messages.error(request, 'Please update the details!')
-            return render(request, 'products/update_product.html', {'f':prod})
+            context = {"product":prod}
+            return render(request, 'products/update_product.html', context)
 
     else:
         prod = get_object_or_404(Product, pk=pk)
-        return render(request, 'products/update_product.html', {'f':prod})
+        context = {"product":prod}
+        return render(request, 'products/update_product.html', context)
 
 def delete_product(request, pk):
     product = Product.objects.get(pk=pk)
