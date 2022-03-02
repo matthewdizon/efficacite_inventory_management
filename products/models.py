@@ -1,4 +1,5 @@
 from django.db import models
+from ingredients.models import Ingredient
 
 # Create your models here.
 class Product(models.Model):
@@ -6,6 +7,7 @@ class Product(models.Model):
     description = models.CharField(max_length=250)
     price = models.FloatField(max_length=250)
     created_at = models.DateTimeField(auto_now_add=True)
+    ingredients = models.ManyToManyField(Ingredient)
 
     def getName(self):
         return f"{self.name}"

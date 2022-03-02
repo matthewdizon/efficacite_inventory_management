@@ -16,6 +16,7 @@
             <th scope="col"> Description </th>
             <th scope="col"> Price (₱) </th>
             <th scope="col"> Date Created </th>
+            <th scope="col"> Ingredients </th>
             <th scope="col" class="no-sort"></th>
         </thead>
         <tbody>
@@ -25,6 +26,11 @@
                 <td> {{ product.description }} </td>
                 <td> {{ product.price }} </td>
                 <td> {{ product.created_at }} </td>
+                <td>
+                {% for ingredient in product.ingredients.all %}
+                    <a href="{% url 'view_ingredient' ingredient.pk %}">{{ingredient.name}}</a>
+                {% endfor %}
+                </td>
                 <td>
                     <a href="{%  url 'view_product' product.pk %}">
                         <button class="btn btn-dark-grabgrub">View</button>
