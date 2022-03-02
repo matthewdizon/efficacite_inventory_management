@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'products',
     'main_app',
     'ingredients',
+    'suppliers',
 ]
 
 MIDDLEWARE = [

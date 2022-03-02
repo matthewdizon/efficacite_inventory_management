@@ -1,0 +1,35 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+<div class="suppliers-hero">
+    <div class="container">
+        <h1 class="jumbotron-heading">Suppliers</h1>
+        <p>A table of all Suppliers</p>
+        <a href="{% url 'add_supplier' %}"><button class="btn btn-dark-grabgrub">Add Supplier</button></a>
+    </div>
+</div>
+
+<div class="col-12">
+    <table class="table table-striped" id="food_table">
+        <thead>
+            <th scope="col"> Supplier Name </th>
+            <th scope="col"> Address </th>
+            <th scope="col"> Phone Number </th>
+            <th scope="col"> Email </th>
+            <th scope="col"> Date Created </th>
+            <th scope="col" class="no-sort"></th>
+        </thead>
+        <tbody>
+            {% for S in Suppliers %}
+            <tr>
+                <td> {{ S.name }} </td>
+                <td> {{ S.address }} </td>
+                <td> {{ S.phonenumber }} </td>
+                <td> {{ S.emailaddress }} </td>
+                <td> {{ S.date }} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
