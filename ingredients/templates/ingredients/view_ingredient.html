@@ -1,0 +1,19 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+<div class="card w-75">
+    <div class="card-header">
+        Ingredient Details: 
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><span>Ingredient Name: </span> {{ingredient.name}}</li>
+        <li class="list-group-item"><span>Description: </span> {{ingredient.description}}</li>
+        <li class="list-group-item"><span>Current Quantity: </span> {{ingredient.current_quantity}}</li>
+        <li class="list-group-item"><span>Quantity Threshold: </span> {{ingredient.quantity_threshold}}</li>
+        <li class="list-group-item"><span>Metric: </span> {{ingredient.metric}}</li>
+        <li class="list-group-item"><span>Date Created: </span> {{ingredient.created_at}}</li>
+    </ul>
+</div>
+
+<a href="{% url 'index' %}"><button class="btn btn-grabgrub">Back</button></a>
+{% endblock %}
