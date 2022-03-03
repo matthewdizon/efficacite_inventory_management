@@ -25,4 +25,4 @@ class Supplier(models.Model):
         return self.emailaddress
         
     def __str__(self):
-        return str(self.pk) + ": " + self.name + str(self.phonenumber) + ". " + self.address + ". " + self.emailaddress + "created at " + self.date
+        return str(self.pk) + ": " + self.name + " " + str(self.phonenumber) + ". " + self.address + ". " + self.emailaddress

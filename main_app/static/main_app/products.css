@@ -22,3 +22,13 @@ table {
 .table tbody tr:hover {
     background: #C5C7CD;
 }
+
+.ingredients-list {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.ingredients-list a:hover {
+    color: white;
+}

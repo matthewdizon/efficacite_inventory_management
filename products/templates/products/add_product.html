@@ -30,11 +30,17 @@
             </div>
         </div>
 
+        <!-- <select class="select_field_class" multiple="multiple" id="ingredients" name="ingredients">
+            {% for ingredient in ingredients.all %}
+                <option value="{{ ingredient.pk }}">{{ingredient.name}}</option>
+            {% endfor %}
+        </select> -->
+
         <input type="hidden" name="message" value="Food created successfully">
 
         <a href="{% url 'add_product' %}"><button type="submit" class="btn btn-dark-grabgrub float-right mr-4" >Add Product</button></a>
 
     </form>
 </div>
-<a href="{% url 'index' %}"><button class="btn btn-grabgrub mt-3">Back</button></a>
+<a href="{% url 'product_index' %}"><button class="btn btn-grabgrub mt-3">Back</button></a>
 {% endblock %}

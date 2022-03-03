@@ -27,9 +27,11 @@
                 <td> {{ product.price }} </td>
                 <td> {{ product.created_at }} </td>
                 <td>
-                {% for ingredient in product.ingredients.all %}
-                    <a href="{% url 'view_ingredient' ingredient.pk %}">{{ingredient.name}}</a>
-                {% endfor %}
+                    <div class="ingredients-list">
+                        {% for ingredient in product.ingredients.all %}
+                            <a href="{% url 'view_ingredient' ingredient.pk %}">- {{ingredient.name}}</a>
+                        {% endfor %}
+                    </div>
                 </td>
                 <td>
                     <a href="{%  url 'view_product' product.pk %}">
