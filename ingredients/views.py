@@ -38,7 +38,7 @@ def add_ingredient(request):
         except Exception as e:
             message = e
             # context = {'ingredients':ingredients, 'message':message}
-            # print(context)
+            print(message)
             return render(request, 'ingredients/add_ingredient.html')
 
     else:

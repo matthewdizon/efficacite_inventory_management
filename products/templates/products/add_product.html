@@ -23,18 +23,13 @@
                 <label for="name"> Price (₱): </label>
                 <input type="number" min="1" class="form-control" id="price" name="price" required>
             </div>
-
-            <div class="form-group w-50 mx-4">
-                <label for="name" > Date Created: </label>
-                <input type="datetime-local" class="form-control" id="date" name="date" required>
-            </div>
         </div>
 
-        <!-- <select class="select_field_class" multiple="multiple" id="ingredients" name="ingredients">
+        <select class="select_field_class" multiple="multiple" id="ingredients" name="ingredients">
             {% for ingredient in ingredients.all %}
                 <option value="{{ ingredient.pk }}">{{ingredient.name}}</option>
             {% endfor %}
-        </select> -->
+        </select>
 
         <input type="hidden" name="message" value="Food created successfully">
 

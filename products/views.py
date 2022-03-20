@@ -8,20 +8,20 @@ def home(request):
     return render(request, 'products/index.html', context)
 
 def add_product(request):
-    ingredients = Ingredient.objects.all()
-    context = {'ingredients':ingredients}
+    ingredients_objects = Ingredient.objects.all()
+    context = {'ingredients':ingredients_objects}
     
     if(request.method=="POST"):
         product_name = request.POST.get('product_name')
         description = request.POST.get('description')
         price = request.POST.get('price')
         created_at = request.POST.get('date')
-        # ingredients = request.POST.get('ingredients')
-        # print(ingredients)
+        ingredient_ids = request.POST.getlist('ingredients')
         
+        ingredients = Ingredient.objects.filter(pk__in=ingredient_ids)
+        print(ingredients)
+
         try:
-            # ingredients = Ingredient.objects.filter(pk=ingredients)
-            
             instance = Product.objects.create(
                 name=product_name,
                 description=description,
@@ -29,7 +29,7 @@ def add_product(request):
                 created_at=created_at,
             )
             
-            # instance.ingredients.add(ingredients)
+            instance.ingredients.add(*ingredients)
 
             # message="Product created successfully"
             # return redirect(f"/foods?message={message}")
@@ -37,7 +37,7 @@ def add_product(request):
 
         except Exception as e:
             message = e
-            context = {'ingredients':ingredients, 'message':message}
+            context = {'ingredients':ingredients_objects, 'message':message}
             print(context)
             return render(request, 'products/add_product.html', context)
 
