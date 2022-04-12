@@ -13,22 +13,46 @@
     <table class="table table-striped" id="food_table">
         <thead>
             <th scope="col"> Ingredient Name </th>
-            <th scope="col"> Description </th>
             <th scope="col"> Current Quantity </th>
-            <th scope="col"> Quantity Threshold </th>
-            <th scope="col"> Metric </th>
-            <th scope="col"> Date Created </th>
+            <th scope="col"> Quantity Priority </th>
+            <th scope="col"> Expiration Date </th>
+            <th scope="col"> Expiration Priorty </th>
+            <th scope="col"> Supplier </th>
             <th scope="col" class="no-sort"></th>
         </thead>
         <tbody>
             {% for ingredient in ingredients %}
             <tr>
                 <td> {{ ingredient.name }} </td>
-                <td> {{ ingredient.description }} </td>
-                <td> {{ ingredient.current_quantity }} </td>
-                <td> {{ ingredient.quantity_threshold }} </td>
-                <td> {{ ingredient.metric }} </td>
-                <td> {{ ingredient.created_at }} </td>
+                <td> {{ ingredient.current_quantity }} ({{ ingredient.metric }})</td>
+                <!-- Column for Quantity Priority -->
+                {% if ingredient.get_quantity_ratio >= 2 %}
+                    <!-- <td> High ({{ ingredient.quantity_threshold }}) </td> -->
+                    <!-- <td> High ({{ ingredient.quantity_threshold|add:ingredient.current_quantity }}) </td> -->
+                    <td> Low ({{ ingredient.quantity_threshold }}) | {{ ingredient.get_quantity_ratio }} </td>
+                {% elif ingredient.get_quantity_ratio < 2 %}
+                    {% if ingredient.get_quantity_ratio >= 1.5 %}
+                        <td> Medium ({{ ingredient.quantity_threshold }}) | {{ ingredient.get_quantity_ratio }} </td>
+                    {% elif ingredient.get_quantity_ratio < 1.5 %}
+                        <td> High ({{ ingredient.quantity_threshold }}) | {{ ingredient.get_quantity_ratio }} </td>
+                    {% endif %}
+                {% endif %}
+                <td> {{ ingredient.expiration_date }}</td>
+                <!-- Column for Quantity Priority -->
+                <!-- {% if ingredient.current_quantity > ingredient.quantity_threshold %}
+                    <td> High</td>
+                {% elif ingredient.current_quantity < ingredient.quantity_threshold %}
+                    <td> Medium </td>
+                {% elif ingredient.current_quantity == ingredient.quantity_threshold %}
+                    <td> Low </td>
+                {% endif %} -->
+                <!-- {% if ingredient.expiration_date|date:"YmdHis" > now|date:"YmdHis" %}
+                    <td>{{ ingredient.expiration_date|timeuntil }}</td>
+                {% else %}
+                    <td>Bye</td>
+                {% endif %} -->
+                <td>{{ ingredient.expiration_date|timeuntil }}</td>
+                <td> {{ ingredient.supplier.name }}</td>
                 <td>
                     <a href="{%  url 'view_ingredient' ingredient.pk %}">
                         <button class="btn btn-dark-grabgrub">View</button>

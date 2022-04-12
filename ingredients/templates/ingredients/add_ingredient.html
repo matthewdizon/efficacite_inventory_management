@@ -39,6 +39,12 @@
             </div>
         </div>
 
+        <select class="select_field_class" id="supplier" name="supplier">
+            {% for supplier in suppliers.all %}
+                <option value="{{ supplier.pk }}">{{supplier.name}}</option>
+            {% endfor %}
+        </select>
+
         <input type="hidden" name="message" value="Food created successfully">
 
         <a href="{% url 'add_ingredient' %}"><button type="submit" class="btn btn-dark-grabgrub float-right mr-4" >Add Ingredient</button></a>
