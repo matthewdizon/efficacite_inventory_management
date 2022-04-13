@@ -4,7 +4,6 @@ from suppliers.models import Supplier
 
 def home(request):
     ingredients = Ingredient.objects.all()
-    print(ingredients[0].current_quantity/ingredients[0].quantity_threshold)
     context = {"ingredients":ingredients}
     return render(request, 'ingredients/index.html', context)
 
