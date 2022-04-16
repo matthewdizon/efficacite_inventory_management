@@ -1,0 +1,33 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+<div class="products-hero">
+    <div class="container">
+        <h1 class="jumbotron-heading">Orders</h1>
+        <p>A table of all Orders</p>
+        <a href="{% url 'add_order' %}"><button class="btn btn-dark-grabgrub">Add Order</button></a>
+    </div>
+</div>
+
+<div class="col-12">
+    <table class="table table-striped" id="food_table">
+        <thead>
+            <th scope="col"> Product </th>
+            <th scope="col"> Quantity </th>
+            <th scope="col"> Payment Mode </th>
+            <th scope="col"> Date Created </th>
+            <th scope="col" class="no-sort"></th>
+        </thead>
+        <tbody>
+            {% for o in Orders %}
+            <tr>
+                <td> {{ o.product_order }} </td>
+                <td> {{ o.qty }} </td>
+                <td> {{ o.payment_mode }} </td>
+                <td> {{ o.ordered_at }} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

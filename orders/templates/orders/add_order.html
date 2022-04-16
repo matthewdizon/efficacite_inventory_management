@@ -1,0 +1,76 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-md-8">
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title"> Type in Order Details:</h5>
+        </div>
+        <div class="card-body">
+
+            <form method="POST" action="{% url 'add_order' %}">{% csrf_token %}
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                        <label for="o_food"> Food: </label>
+                        <select name="o_food" id= "o_food" class="form-control flex-fill">
+                            {% for i in ingredients %}
+                                <option value = "{{i.name}}">{{i.name}}</option>
+                            {% endfor %}
+                        </select>
+                        </div>
+                    
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="vintage"> Quantity: </label>
+                            <input type="number" class="form-control w-60" id="o_quantity" name="o_quantity">
+                        </div>
+        
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="o_pmode"> Payment Mode: </label>
+                            <input type="text" class="form-control w-60" id="o_pmode" name="o_pmode">
+                        </div>
+        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="vintage"> Ordered At: </label>
+                            <input type="datetime-local" class="form-control w-60" id="o_orderedat" name="o_orderedat">
+                        </div>
+        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="vintage"> Status: </label>
+                            <class="form-control w-60" id="o_status" name="o_status">
+                            <select name="o_food" id= "o_food" class="form-control flex-fill">
+                                <option value = "Served">Served</option>
+                                <option value = "Paid">Paid</option>
+                                <option value = "Created">Created</option>
+                            </select>
+                        </div>
+        
+                    </div>
+                </div>
+
+                <a href="{% url 'add_order' %}"><button type="submit" class="mt-3 btn btn-primary">Add Order</button></a>
+                
+            </form>                
+            <a href="{% url 'order_index' %}"><button class="btn btn-outline-dark">Cancel</button></a>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}
