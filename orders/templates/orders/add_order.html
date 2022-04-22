@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
-                        <label for="o_food"> Food: </label>
+                        <label for="name"> Food: </label>
                         <select name="o_food" id= "o_food" class="form-control flex-fill">
                             {% for i in ingredients %}
                                 <option value = "{{i.name}}">{{i.name}}</option>
@@ -34,8 +34,11 @@
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="o_pmode"> Payment Mode: </label>
-                            <input type="text" class="form-control w-60" id="o_pmode" name="o_pmode">
+                            <label for="name"> Payment Mode: </label>
+                            <select class="form-control flex-fill" id="o_pmode" name="o_pmode">
+                                <option value = "Cash">Cash</option>
+                                <option value = "Card">Card</option>
+                            </select>
                         </div>
         
                     </div>
@@ -43,7 +46,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="vintage"> Ordered At: </label>
+                            <label for="name"> Ordered At: </label>
                             <input type="datetime-local" class="form-control w-60" id="o_orderedat" name="o_orderedat">
                         </div>
         
@@ -52,12 +55,11 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="vintage"> Status: </label>
-                            <class="form-control w-60" id="o_status" name="o_status">
-                            <select name="o_food" id= "o_food" class="form-control flex-fill">
+                            <label for="name"> Status: </label>
+                            <select class="form-control flex-fill" id="o_status" name="o_status">
+                                <option value = "Created">Created</option>
                                 <option value = "Served">Served</option>
                                 <option value = "Paid">Paid</option>
-                                <option value = "Created">Created</option>
                             </select>
                         </div>
         

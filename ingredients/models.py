@@ -20,7 +20,7 @@ class Ingredient(models.Model):
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
     
     def __str__(self):
-        return f"{self.pk}: {self.name} created at: {self.created_at}"
+        return f"{self.pk}: {self.name}"
 
     def get_quantity_ratio(self):
         return self.current_quantity / self.quantity_threshold
