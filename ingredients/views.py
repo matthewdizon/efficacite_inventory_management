@@ -52,6 +52,22 @@ def add_ingredient(request):
     else:
         return render(request, 'ingredients/add_ingredient.html', context)
 
+def batch_ingredient(request, pk):
+    ingredient = get_object_or_404(Ingredient, pk=pk)
+    Quantity = ingredient.current_quantity
+    if(request.method=="POST"):
+        batchq = request.POST.get('batch_quantity')
+        newquantity = int(batchq) + int(Quantity)
+        #try: 
+        #    Ingredient.objects.get(name=foodname)
+        #    messages.error(request,'Food already exist')
+        #    return redirect('view_food')
+        #except:
+        Ingredient.objects.filter(pk=pk).update(current_quantity = str(newquantity))
+        return redirect('ingredient_index')
+    else:
+        return render(request, 'ingredients/batch_ingredient.html', {'ingredient':ingredient})
+
 def view_ingredient(request, pk):
     ingredient = get_object_or_404(Ingredient, pk=pk)
     if request.GET.get('message') == None:

@@ -19,6 +19,7 @@
             <th scope="col"> Expiration Priorty </th>
             <th scope="col"> Supplier </th>
             <th scope="col" class="no-sort"></th>
+            <th scope="col" class="no-sort"></th>
         </thead>
         <tbody>
             {% for ingredient in ingredients %}
@@ -56,6 +57,11 @@
                 <td>
                     <a href="{%  url 'view_ingredient' ingredient.pk %}">
                         <button class="btn btn-dark-grabgrub">View</button>
+                    </a>
+                </td>
+                <td>
+                    <a href="{%  url 'batch_ingredient' ingredient.pk %}">
+                        <button class="btn btn-dark-grabgrub">Add</button>
                     </a>
                 </td>
             </tr>

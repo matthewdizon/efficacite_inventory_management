@@ -22,5 +22,8 @@ class Ingredient(models.Model):
     def __str__(self):
         return f"{self.pk}: {self.name}"
 
+    def get_quantity(self):
+        return self.quantity
+
     def get_quantity_ratio(self):
         return self.current_quantity / self.quantity_threshold
