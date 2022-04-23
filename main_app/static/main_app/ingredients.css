@@ -1,0 +1,11 @@
+.quantity-priority-high {
+    color: red;
+}
+
+.quantity-priority-medium {
+    color: orange;
+}
+
+.quantity-priority-low {
+    color: green;
+}

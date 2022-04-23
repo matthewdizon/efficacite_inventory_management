@@ -30,12 +30,12 @@
                 {% if ingredient.get_quantity_ratio >= 2 %}
                     <!-- <td> High ({{ ingredient.quantity_threshold }}) </td> -->
                     <!-- <td> High ({{ ingredient.quantity_threshold|add:ingredient.current_quantity }}) </td> -->
-                    <td> Low ({{ ingredient.quantity_threshold }}) | {{ ingredient.get_quantity_ratio }} </td>
+                    <td class="quantity-priority-low"> Low ({{ ingredient.quantity_threshold }}) | {{ ingredient.get_quantity_ratio }} </td>
                 {% elif ingredient.get_quantity_ratio < 2 %}
                     {% if ingredient.get_quantity_ratio >= 1.5 %}
-                        <td> Medium ({{ ingredient.quantity_threshold }}) | {{ ingredient.get_quantity_ratio }} </td>
+                        <td class="quantity-priority-medium"> Medium ({{ ingredient.quantity_threshold }}) | {{ ingredient.get_quantity_ratio }} </td>
                     {% elif ingredient.get_quantity_ratio < 1.5 %}
-                        <td> High ({{ ingredient.quantity_threshold }}) | {{ ingredient.get_quantity_ratio }} </td>
+                        <td class="quantity-priority-high"> High ({{ ingredient.quantity_threshold }}) | {{ ingredient.get_quantity_ratio }} </td>
                     {% endif %}
                 {% endif %}
                 <td> {{ ingredient.expiration_date }}</td>

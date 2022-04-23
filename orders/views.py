@@ -20,8 +20,10 @@ def add_order(request):
             orderedat = request.POST.get('o_orderedat')
             status = request.POST.get('o_status')
             Order.objects.create(ingredient_order= ingredient, qty=qty, ordered_at=orderedat, payment_mode=payment, status=status)
-            #ingredient.update(current_quantity=ingredient.current_quantity - qty)
-            return render(request, 'orders/index.html', {'order':order_objects})
+            new_qty = int(ingredient.current_quantity) - int(qty)
+            ingredient.current_quantity = new_qty
+            ingredient.save()
+            return redirect(f"/orders")
         except:
             messages.error(request, 'Please complete Order details!')
             i = Ingredient.objects.all()
