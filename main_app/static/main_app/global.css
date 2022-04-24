@@ -26,8 +26,9 @@ nav {
 
 nav a { 
     /* color: #DDE2FF; */
+    border-left: #590101 4px solid;
     color: #A4A6B3;
-    margin: 0 24px;
+    padding: 0 24px;
 }
 
 .nav-link {
@@ -37,11 +38,17 @@ nav a {
     align-items: center;
 }
 
+nav a:hover, nav > .activate {
+    border-left: #DEE2FD 4px solid;
+    color: #DDE2FF;
+    background-color: #571613;
+}
+
 .nav-link:hover {
     color: #DDE2FF;
 }
 
-.nav-link:hover svg path {
+.nav-link:hover svg path, nav > .activate svg path {
     /* filter: invert(86%) sepia(11%) saturate(1136%) hue-rotate(197deg) brightness(102%) contrast(104%); */
     fill: #DDE2FF;
     /* color: blue; */
@@ -51,7 +58,14 @@ nav a {
     height: 20px;
     width: 20px;
     margin-right: 12px;
+    fill: #6E444A;
 }
+
+/* nav > .activate {
+    color: #DEE2FD;
+    border-left: #DEE2FD 4px solid;
+    background-color: #571613;
+} */
 
 /* Content Container */
 
