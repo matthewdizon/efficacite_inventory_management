@@ -1,6 +1,7 @@
 from django.db import models
 from ingredients.models import Ingredient
-# Create your models here.
+from django.utils.timezone import now
+
 STATUS = (
         ('created', 'Created'),
         ('paid', 'Paid'),
@@ -14,7 +15,7 @@ PAYMENT_MODE = (
 class Order(models.Model):
     ingredient_order = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     qty = models.FloatField()
-    ordered_at = models.DateTimeField()
+    ordered_at = models.DateTimeField(default=now)
     total = models.DecimalField(max_digits=10, decimal_places=2,default=0.00)
     payment_mode = models.CharField(max_length=4, choices=PAYMENT_MODE)
     status = models.CharField(max_length=20, choices=STATUS)

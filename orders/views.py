@@ -17,9 +17,9 @@ def add_order(request):
             ingredient = Ingredient.objects.get(name=request.POST.get('o_food'))
             qty = request.POST.get('o_quantity')
             payment = request.POST.get('o_pmode')
-            orderedat = request.POST.get('o_orderedat')
+            # orderedat = request.POST.get('o_orderedat')
             status = request.POST.get('o_status')
-            Order.objects.create(ingredient_order= ingredient, qty=qty, ordered_at=orderedat, payment_mode=payment, status=status)
+            Order.objects.create(ingredient_order= ingredient, qty=qty, payment_mode=payment, status=status)
             new_qty = int(ingredient.current_quantity) - int(qty)
             ingredient.current_quantity = new_qty
             ingredient.save()
@@ -35,13 +35,19 @@ def add_order(request):
 
 def update_order(request, pk):
     o = get_object_or_404(Order, pk=pk)
-    o_qty = request.POST.get('qty')
+    # o_qty = request.POST.get('qty')
     o_status = request.POST.get('status')
     order_objects = Order.objects.all()
 
     if(request.method=="POST"):
-        Order.objects.filter(pk=pk).update(qty = o_qty, status = o_status)
-        return render(request, 'orders/index.html', {'order':order_objects})
+        # Order.objects.filter(pk=pk).update(qty = o_qty, status = o_status)
+        Order.objects.filter(pk=pk).update(status = o_status)
+        return redirect(f"/orders")
 
     else:
         return render(request, 'orders/update_order.html', {'o': o})
+
+def delete_order(request, pk):
+    order = Order.objects.get(pk=pk)
+    order.delete()
+    return redirect(f"/orders")
