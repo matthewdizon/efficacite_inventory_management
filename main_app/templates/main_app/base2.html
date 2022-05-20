@@ -1,0 +1,31 @@
+{% load static %}
+
+<html>
+    <head>
+        <title>Benjamin's Grill House</title>
+        <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static '/bootstrap/css/custom.css' %}">
+
+        <script src="{% static '/bootstrap/jquery-3.4.1.slim.min.js' %}"></script>
+        <script src="{% static '/bootstrap/popper.min.js' %}"></script>
+        <script src="{% static '/bootstrap/js/bootstrap.min.js' %}"></script>
+    <style>
+        .xunderline {
+            text-decoration: none !important
+        }
+    </style>
+    </head>
+    <body>
+      <div>
+
+        <div class="header text-center pb-2 pt-1 div1" style="background-color: #600404;">
+          <p class="h1 font-italic text-light">Benjamin's Grill House</p>
+        </div>
+            
+                {% block content %}
+                {% endblock %}
+            
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,51 @@
+<head>
+    <title>Create Account</title>
+</head>
+
+{% extends 'main_app/base2.html' %}
+{% load static %}
+    {% block content %}
+    {% for message in messages %}
+    <div class="alert alert-danger">
+        <a class="close" href="#" data-dismiss="alert">×</a>
+    
+        {{ message }}
+    
+    </div>
+    {% endfor %}
+        <div class="header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+
+        </div>
+                    <div class="col-md-3 mx-auto">
+                        <div class="card mb-5">
+                            <div class="card-header">
+                                <h5 class="card-title">Sign Up</h5>
+                            </div>
+                <div class="card-body">
+                    <form method="POST" action="{% url 'create_account' %}">{% csrf_token %}
+                        <div class="form-group">
+                            <label for="name"> Username: </label>
+                            <input type="text" class="form-control" id="user" name="user" placeholder="Enter Username" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="address"> Password: </label>
+                                    <input type="text" class="form-control" id="pass" name="pass" placeholder="Enter Password" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class ="row">
+                            <button type="submit" class="mx-3 btn btn-success">Submit</button>
+                            </div>
+                        </form>                
+                    </div>
+                </div>
+            </div>
+            <div class = "row">
+                <div class='col-5'>
+                    
+                    
+                </div>
+            </div>
+    {% endblock %}
