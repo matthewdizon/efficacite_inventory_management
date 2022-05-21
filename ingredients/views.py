@@ -1,11 +1,24 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from suppliers.models import Supplier
-
+from django.core.mail import send_mail
 def home(request):
     ingredients = Ingredient.objects.all()
     context = {"ingredients":ingredients}
-    return render(request, 'ingredients/index.html', context)
+    if(request.method=="GET"):
+        for x in ingredients:
+            if x.current_quantity < x.quantity_threshold:
+                iname = x.name
+                send_mail(
+                iname + ' is low',
+                iname + ' should be restocked immediately',
+                'grillhouseapp@gmail.com',
+                ['gerard.aaron.tan@obf.ateneo.edu'],
+                fail_silently=False,
+                        )
+        return render(request, 'ingredients/index.html', context)
+    else:    
+        return render(request, 'ingredients/index.html', context)
 
 def add_ingredient(request):
     supplier_objects = Supplier.objects.all()
