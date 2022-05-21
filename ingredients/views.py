@@ -10,10 +10,10 @@ def home(request):
             if x.current_quantity < x.quantity_threshold:
                 iname = x.name
                 send_mail(
-                iname + ' is low',
-                iname + ' should be restocked immediately',
-                'grillhouseapp@gmail.com',
-                ['gerard.aaron.tan@obf.ateneo.edu'],
+                iname + ' is low', #Subject
+                iname + ' should be restocked immediately', #Body
+                'grillhouseapp@gmail.com', #From
+                [''], #To
                 fail_silently=False,
                         )
         return render(request, 'ingredients/index.html', context)
