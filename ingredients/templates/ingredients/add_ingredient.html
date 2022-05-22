@@ -39,11 +39,14 @@
             </div>
         </div>
 
-        <select class="select_field_class" id="supplier" name="supplier">
-            {% for supplier in suppliers.all %}
-                <option value="{{ supplier.pk }}">{{supplier.name}}</option>
-            {% endfor %}
-        </select>
+        <div class="form-group">
+            <label for="name"> Supplier: </label>
+            <select class="select_field_class" id="supplier" name="supplier">
+                {% for supplier in suppliers.all %}
+                    <option value="{{ supplier.pk }}">{{supplier.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
 
         <input type="hidden" name="message" value="Food created successfully">
 
