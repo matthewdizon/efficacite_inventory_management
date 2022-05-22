@@ -27,6 +27,16 @@
                 <td> {{ S.phonenumber }} </td>
                 <td> {{ S.emailaddress }} </td>
                 <td> {{ S.date }} </td>
+                <td>
+                    <a href="{%  url 'view_supplier' S.pk %}">
+                        <button class="btn btn-dark-grabgrub">View</button>
+                    </a>
+                </td>
+                <td>
+                    <a href="{%  url 'update_supplier' S.pk %}">
+                        <button class="btn btn-dark-grabgrub">Update</button>
+                    </a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

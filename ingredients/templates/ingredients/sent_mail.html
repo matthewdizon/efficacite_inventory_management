@@ -1,0 +1,19 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+<div class="card w-75">
+    {% if recipients %}
+        <p>Successfully sent email notification to your suppliers!</p>
+        <h1>Emails Sent:</h1>
+        {% for i in recipients %}
+            <h2>Recipient: {{i.0}} </h2>
+            <p><em>{{i.1}}</em></p>
+            <p>{{i.2}}</p>
+            <br>
+        {% endfor %}
+    {% else %}
+        <h1>No emails have been sent.</h1>
+    {% endif %}
+</div>
+<a href="{% url 'ingredient_index' %}"><button class="btn btn-grabgrub mt-3">Back</button></a>
+{% endblock %}

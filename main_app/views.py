@@ -16,18 +16,8 @@ def login(request):
         UN = request.POST.get('user')
         PW = request.POST.get('pass')
         
-        #if User.objects.filter(username = UN, password = PW):
-            #acc = get_object_or_404(User, username = UN, password = PW )
-            #return render(request, 'main_app/index.html')
         if UN == "UserADMIN" and PW == "GRILLpass":
-            send_mail(
-            'Test email',
-            'Test Email for the app ',
-            'grillhouseapp@gmail.com',
-            ['gerard.aaron.tan@obf.ateneo.edu'],
-            fail_silently=False,
-                    )
-            return render(request, 'main_app/index.html')
+            return redirect('index') 
         else:
             messages.error(request,'Invalid Login Details')
             return redirect('login') 

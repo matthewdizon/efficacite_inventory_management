@@ -1,10 +1,10 @@
 table {
-    border-collapse:collapse;
+    border-collapse: separate;
 }
 
 .table {
     border: 1px solid #DFE0EB;
-    border-radius: 4px;
+    border-radius: 8px;
     width: 100%;
 }
 
@@ -19,8 +19,14 @@ table {
     border: 1px solid black;
 }
 
-.table tbody tr:hover {
+/* .table tbody tr:hover {
     background: #C5C7CD;
+} */
+
+.table tbody tr:hover {
+    /* background: #C5C7CD; */
+    color: gray;
+    cursor: pointer;
 }
 
 .ingredients-list {

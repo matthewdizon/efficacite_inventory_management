@@ -10,8 +10,8 @@
         <li class="list-group-item"><span>Description: </span> {{product.description}}</li>
         <li class="list-group-item"><span>Price (₱): </span> {{product.price}}</li>
         <li class="list-group-item"><span>Date Created: </span> {{product.created_at}}</li>
-        <div>
-            <p>Ingredients</p>
+        <div class="list-group-item">
+            <span><p>Ingredients</p></span>
             {% for ingredient in product.ingredients.all %}
                 <a href="{% url 'view_ingredient' ingredient.pk %}"><li>{{ ingredient.name }}</li></a>
             {% endfor %}
