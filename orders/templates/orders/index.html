@@ -31,9 +31,12 @@
                     </a>
                 </td>
                 <td>
-                    <a href="{%  url 'delete_order' order.pk %}" onclick="confirm('Are you sure you want to delete this?')">
-                        <button class="btn btn-dark-grabgrub">Delete</button>
-                    </a>
+                    <form action="{%  url 'delete_order' order.pk %}" method="post" onsubmit="window.mytest()">
+                        {% csrf_token %}
+                        <a href="{%  url 'delete_order' order.pk %}">
+                            <button class="btn btn-dark-grabgrub">Delete</button>
+                        </a>
+                    </form>
                 </td>
             </tr>
             {% endfor %}

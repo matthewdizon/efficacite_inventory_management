@@ -15,7 +15,6 @@ class Ingredient(models.Model):
     current_quantity = models.FloatField(max_length=250)
     quantity_threshold = models.FloatField(max_length=250)
     metric = models.CharField(max_length=25, choices=METRIC_CHOICES, default='kg')
-    created_at = models.DateTimeField(auto_now_add=True)
     expiration_date = models.DateTimeField(default=now)
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
     

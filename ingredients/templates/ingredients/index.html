@@ -27,12 +27,8 @@
             <tr>
                 <td> {{ ingredient.name }} </td>
                 <td> {{ ingredient.current_quantity }} ({{ ingredient.metric }})</td>
-                <!-- Column for Quantity Priority -->
                 {% if ingredient.get_quantity_ratio >= 2 %}
-                    <!-- <td> High ({{ ingredient.quantity_threshold }}) </td> -->
-                    <!-- <td> High ({{ ingredient.quantity_threshold|add:ingredient.current_quantity }}) </td> -->
                     <td class="quantity-priority-low"> Low ({{ ingredient.quantity_threshold }}) | {{ ingredient.get_quantity_ratio }} </td>
-                    
                 {% elif ingredient.get_quantity_ratio < 2 %}
                     {% if ingredient.get_quantity_ratio >= 1.5 %}
                         <td class="quantity-priority-medium"> Medium ({{ ingredient.quantity_threshold }}) | {{ ingredient.get_quantity_ratio }} </td>
@@ -41,19 +37,6 @@
                     {% endif %}
                 {% endif %}
                 <td> {{ ingredient.expiration_date }}</td>
-                <!-- Column for Quantity Priority -->
-                <!-- {% if ingredient.current_quantity > ingredient.quantity_threshold %}
-                    <td> High</td>
-                {% elif ingredient.current_quantity < ingredient.quantity_threshold %}
-                    <td> Medium </td>
-                {% elif ingredient.current_quantity == ingredient.quantity_threshold %}
-                    <td> Low </td>
-                {% endif %} -->
-                <!-- {% if ingredient.expiration_date|date:"YmdHis" > now|date:"YmdHis" %}
-                    <td>{{ ingredient.expiration_date|timeuntil }}</td>
-                {% else %}
-                    <td>Bye</td>
-                {% endif %} -->
                 <td>{{ ingredient.expiration_date|timeuntil }}</td>
                 <td> {{ ingredient.supplier.name }}</td>
                 <td>
@@ -65,6 +48,19 @@
                     <a href="{%  url 'batch_ingredient' ingredient.pk %}">
                         <button class="btn btn-dark-grabgrub">Add</button>
                     </a>
+                </td>
+                <td>
+                    <a href="{%  url 'update_ingredient' ingredient.pk %}">
+                        <button class="btn btn-dark-grabgrub">Update</button>
+                    </a>
+                </td>
+                <td>
+                    <form action="{%  url 'delete_ingredient' ingredient.pk %}" method="post" onsubmit="window.mytest()">
+                        {% csrf_token %}
+                        <a href="{%  url 'delete_ingredient' ingredient.pk %}">
+                            <button class="btn btn-dark-grabgrub">Delete</button>
+                        </a>
+                    </form>
                 </td>
             </tr>
             {% endfor %}

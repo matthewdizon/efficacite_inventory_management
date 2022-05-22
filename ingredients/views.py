@@ -49,7 +49,6 @@ def add_ingredient(request):
         current_quantity = request.POST.get('current_quantity')
         quantity_threshold = request.POST.get('quantity_threshold')
         metric = request.POST.get('metric')
-        created_at = request.POST.get('date')
         supplier_id = request.POST.get('supplier')
 
         print(supplier_id)
@@ -67,7 +66,6 @@ def add_ingredient(request):
                 current_quantity=current_quantity,
                 quantity_threshold=quantity_threshold,
                 metric=metric,
-                created_at=created_at,
                 supplier=supplier[0],
             )
 
@@ -83,6 +81,46 @@ def add_ingredient(request):
 
     else:
         return render(request, 'ingredients/add_ingredient.html', context)
+
+def update_ingredient(request, pk):
+
+    ingredient = get_object_or_404(Ingredient, pk=pk)
+    suppliers = Supplier.objects.all()
+    context = {"i":ingredient, "suppliers":suppliers}
+        
+    if(request.method=="POST"):
+        ingredient_name = request.POST.get('ingredient_name')
+        description = request.POST.get('description')
+        current_quantity = request.POST.get('current_quantity')
+        quantity_threshold = request.POST.get('quantity_threshold')
+        metric = request.POST.get('metric')
+        supplier_id = request.POST.get('supplier')
+        supplier = Supplier.objects.filter(pk=supplier_id)
+        
+        try:
+            instance = Ingredient.objects.filter(pk=pk).update(
+                name=ingredient_name,
+                description=description,
+                current_quantity=current_quantity,
+                quantity_threshold=quantity_threshold,
+                metric=metric,
+                supplier=supplier[0],
+            )
+
+            return redirect(f"/inventory")
+
+        except Exception as e:
+            message = e
+            print(message, ingredient_name)
+            return render(request, 'ingredients/add_ingredient.html', context)
+
+    else:
+        return render(request, 'ingredients/update_ingredient.html', context)
+
+def delete_ingredient(request, pk):
+    ingredient = Ingredient.objects.get(pk=pk)
+    ingredient.delete()
+    return redirect(f"/inventory")
 
 def batch_ingredient(request, pk):
     ingredient = get_object_or_404(Ingredient, pk=pk)
