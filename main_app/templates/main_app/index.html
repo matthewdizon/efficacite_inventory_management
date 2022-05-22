@@ -4,5 +4,20 @@
 <div>
     <h1>Home Page</h1>
     <p>Efficacite</p>
+    <h2>Sales Report</h2>
+    <form method="POST" action="{% url 'export_salesreport' %}" style="padding-left: 10; padding-right: 10;">{% csrf_token %}
+        <div class="d-flex flex-row">
+            <div class="form-group w-50 mx-4">
+                <label for="name">From: </label>
+                <input type="date" class="form-control" id="range_from" name="range_from" required>
+            </div>
+
+            <div class="form-group w-50 mx-4">
+                <label for="name">To: </label>
+                <input type="date" class="form-control" id="range_to" name="range_to" required>
+            </div>
+        </div>
+        <a href="{% url 'export_salesreport' %}"><button type="submit" class="btn btn-dark-grabgrub float-right mr-4" >Export Sales Report</button></a>
+    </form>
 </div>
 {% endblock %}
