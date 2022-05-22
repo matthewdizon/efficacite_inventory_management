@@ -27,13 +27,13 @@ def send_notification(request):
                 title = f"Benjamin's Grill House | {product} Quantity: HIGH PRIORITY"
                 body = f"{product} should be restocked immediately. Current quantity left is: {x.current_quantity}. Our Quantity Threshold is: {x.quantity_threshold}"
 
-            # send_mail(
-            # title, #Subject
-            # body, #Body
-            # 'grillhouseapp@gmail.com', #From
-            # [email], #To
-            # fail_silently=True,
-            # )
+            send_mail(
+            title, #Subject
+            body, #Body
+            'grillhouseapp@gmail.com', #From
+            [email], #To
+            fail_silently=True,
+            )
             
             recipients.append([email, title, body])
 
