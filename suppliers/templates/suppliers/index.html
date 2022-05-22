@@ -37,6 +37,14 @@
                         <button class="btn btn-dark-grabgrub">Update</button>
                     </a>
                 </td>
+                <td>
+                    <form action="{%  url 'delete_supplier' S.pk %}" method="post" onsubmit="window.mytest()">
+                        {% csrf_token %}
+                        <a href="{%  url 'delete_supplier' S.pk %}">
+                            <button class="btn btn-dark-grabgrub">Delete</button>
+                        </a>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

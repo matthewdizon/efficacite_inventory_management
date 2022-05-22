@@ -67,4 +67,4 @@ def update_supplier(request, pk):
 def delete_supplier(request, pk):
     supplier = Supplier.objects.get(pk=pk)
     supplier.delete()
-    return redirect(f"/supplier")
+    return redirect(f"/suppliers")
