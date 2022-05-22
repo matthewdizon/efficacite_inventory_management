@@ -27,3 +27,5 @@ class Ingredient(models.Model):
 
     def get_quantity_ratio(self):
         return self.current_quantity / self.quantity_threshold
+
+ 
