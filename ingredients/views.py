@@ -2,23 +2,42 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from suppliers.models import Supplier
 from django.core.mail import send_mail
+
 def home(request):
     ingredients = Ingredient.objects.all()
     context = {"ingredients":ingredients}
-    if(request.method=="GET"):
-        for x in ingredients:
-            if x.current_quantity < x.quantity_threshold:
-                iname = x.name
-                send_mail(
-                iname + ' is low', #Subject
-                iname + ' should be restocked immediately', #Body
-                'grillhouseapp@gmail.com', #From
-                [''], #To
-                fail_silently=False,
-                        )
-        return render(request, 'ingredients/index.html', context)
-    else:    
-        return render(request, 'ingredients/index.html', context)
+    return render(request, 'ingredients/index.html', context)
+
+def send_notification(request):
+    ingredients = Ingredient.objects.all()
+    recipients = []
+    context = {"ingredients":ingredients, "recipients":recipients}
+    
+    for x in ingredients:
+        print(x.get_quantity_ratio())
+        ratio = x.get_quantity_ratio()
+        product = x.name
+        email = x.supplier.getEmail()
+
+        if ratio < 2:
+            if ratio >= 1.5:
+                title = f"Benjamin's Grill House | {product} Quantity: MEDIUM PRIORITY"
+                body = f"{product} should be restocked soon. Current quantity left is: {x.current_quantity}. Our Quantity Threshold is: {x.quantity_threshold}"
+            elif ratio < 1.5:
+                title = f"Benjamin's Grill House | {product} Quantity: HIGH PRIORITY"
+                body = f"{product} should be restocked immediately. Current quantity left is: {x.current_quantity}. Our Quantity Threshold is: {x.quantity_threshold}"
+
+            # send_mail(
+            # title, #Subject
+            # body, #Body
+            # 'grillhouseapp@gmail.com', #From
+            # [email], #To
+            # fail_silently=True,
+            # )
+            
+            recipients.append([email, title, body])
+
+    return render(request, 'ingredients/sent_mail.html', context)
 
 def add_ingredient(request):
     supplier_objects = Supplier.objects.all()

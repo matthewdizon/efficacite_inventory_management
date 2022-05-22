@@ -1,0 +1,17 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+<div class="card w-75">
+    <div class="card-header">
+        Supplier Details: 
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><span>Supplier Name: </span> {{supplier.name}}</li>
+        <li class="list-group-item"><span>Address: </span> {{supplier.address}}</li>
+        <li class="list-group-item"><span>Phone Number: </span> {{supplier.phonenumber}}</li>
+        <li class="list-group-item"><span>Email Address: </span> {{supplier.emailaddress}}</li>
+    </ul>
+</div>
+
+<a href="{% url 'supplier_index' %}"><button class="btn btn-grabgrub">Back</button></a>
+{% endblock %}

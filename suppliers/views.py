@@ -62,7 +62,7 @@ def update_supplier(request, pk):
     else:
         supp = get_object_or_404(Supplier, pk=pk)
         context = {"supplier":supp}
-        return render(request, 'products/update_supplier.html', context)
+        return render(request, 'suppliers/update_supplier.html', context)
 
 def delete_supplier(request, pk):
     supplier = Supplier.objects.get(pk=pk)
