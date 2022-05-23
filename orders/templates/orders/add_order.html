@@ -8,46 +8,116 @@
         <div class="card-header">
             Type in Order Details:
         </div>
-        <div class="card-body">
-            <form id="form-container" method="POST">
-                {% csrf_token %}
-                {{order_formset.management_form}}
-                {% for form in order_formset %}
-                <div class="order-form">
-                {{form.as_p}}
+        <div id="form-container">
+            <div class="order-form">
+                <div class="quantity-group">
+                    <label for="quantity">Quantity: </label>
+                    <input type="number" name="quantity" id="quantity" value="5" min="0">
                 </div>
-                {% endfor %}
-                <div class="order-buttons">
-                    <button id="add-form" class="btn" type="button">Add Another Order</button>
-                    <button type="submit" class="mt-3 btn btn-primary">Add Order</button>
+                <div class="ingredient-group">
+                    <label for="name"> Item: </label>
+                    <select class="select_field_class" id="ingredient" name="ingredient">
+                        {% for i in ingredients.all %}
+                            <option value="{{ i.name }} @ {{ i.price }}">{{i.name}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
+            </div>
+            <div class="order-buttons">
+                <button id="add-form" class="btn" type="button">Add Another Order</button>
+            </div>
+            <form method="POST" action="{% url 'confirm_order' %}"> {% csrf_token %}
+                <h4 class="mb-3">Payment Type</h4>
+                <div class="my-3">
+                  <div class="form-check">
+                    <label class="form-check-label" for="credit">Cash </label>
+                    <input id="credit" name="payment_method" type="radio" class="form-check-input" value=1 required>
+                  </div>
+                  <div class="form-check">
+                    <label class="form-check-label" for="debit">Card</label>
+                    <input id="debit" name="payment_method" type="radio" class="form-check-input" value=2>
+                  </div>
+                </div>
+                <input type="hidden" name="complete_order" id="complete_order" value="">  
+                <button type="submit" class="btn btn-primary" id="sb">Submit Order</button>
             </form>
+            <div>
+                <ul class="list-group mb-3" id="ord">
+                </ul>
+            </div>
         </div>
     </div>
     <a href="{% url 'order_index' %}"><button class="btn btn-outline-dark">Cancel</button></a>
 </div>
 <script>
-    let orderForm = document.querySelectorAll(".order-form")
-    let container = document.querySelector("#form-container")
     let addButton = document.querySelector("#add-form")
-    let orderButtons = document.querySelector(".order-buttons")
-    let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
+    let submitButton = document.querySelector("#sb")
 
-    let formNum = orderForm.length-1
-    addButton.addEventListener('click', addForm)
+    let orderDetails = document.querySelector("#ord")
+    let orders = document.querySelector("#ord div")
 
-    function addForm(e){
-        console.log(orderForm)
-        e.preventDefault()
+    
+    addButton.addEventListener('click', addDetails)
+    submitButton.addEventListener('click', completeOrder)
 
-        let newForm = orderForm[0].cloneNode(true)
-        let formRegex = RegExp(`form-(\\d){1}-`,'g')
+    // function addForm(e){
+    //     console.log(orderForm)
+    //     e.preventDefault()
 
-        formNum++
-        newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
-        container.insertBefore(newForm, orderButtons)
+    //     let newForm = orderForm[0].cloneNode(true)
+    //     let formRegex = RegExp(`form-(\\d){1}-`,'g')
+
+    //     formNum++
+    //     newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
+    //     container.insertBefore(newForm, orderButtons)
         
-        totalForms.setAttribute('value', `${formNum+1}`)
+    //     totalForms.setAttribute('value', `${formNum+1}`)
+    // }
+
+    function addDetails(e){
+        let quantity = document.getElementById('quantity')
+        let ingredient = document.getElementById('ingredient')
+        let complete_order = document.getElementById('complete_order')
+        console.log("quantity here: ", quantity)
+        console.log("ingredient here: ", ingredient)
+
+        if (quantity.value != 0 && ingredient.value) {
+            let currQuantity = document.querySelector(".quantity-group")
+            // orderDetails.append(`Ordered ${quantity}pcs of ${ingredient}`)
+            let container = document.createElement('div')
+            container.innerHTML += "--------------"
+            container.innerHTML += "<br>"
+            container.innerHTML += "<div>"
+            container.innerHTML += `<small>Ingredient & Price (PHP):</small>`
+            container.innerHTML += `<p class="oingdt">${ingredient.value}</p>`
+            container.innerHTML += `<small>Quantity (pcs):</small>`
+            container.innerHTML += `<p class="oqty">${quantity.value}</p>`
+            container.innerHTML += "</div>"
+            container.innerHTML += "<br>"
+            orderDetails.appendChild(container)
+
+            quantity.value = ""
+            ingredient.value = ""
+        }
+        else {
+            alert("Error!")
+        }
+    }
+
+    function completeOrder(e){
+        let children = orderDetails.children
+
+        for (var i = 0; i < children.length; i++) {
+            var tableChild = children[i];
+            let ingredient_price = tableChild.children[3].innerText.split(" @ ")
+            
+            let oqty = tableChild.children[5].innerText
+            let oingredient = ingredient_price[0]
+            let oprice = ingredient_price[1]
+            
+            let comb = [oqty, oingredient, oprice]
+            complete_order.value = complete_order.value + comb + "-"
+        }
     }
 </script>
 {% endblock %}

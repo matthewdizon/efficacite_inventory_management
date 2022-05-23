@@ -5,25 +5,32 @@
     <div class="container">
         <h1 class="jumbotron-heading">Orders</h1>
         <p>A table of all Orders</p>
-        <a href="{% url 'add_order' %}"><button class="btn btn-dark-grabgrub">Add Order</button></a>
+        <a href="{% url 'confirm_order' %}"><button class="btn btn-dark-grabgrub">Add Order</button></a>
     </div>
 </div>
 
 <div class="col-12">
     <table class="table table-striped" id="food_table">
         <thead>
-            <th scope="col"> Product </th>
-            <th scope="col"> Quantity </th>
+            <th scope="col"> Ingredients Ordered </th>
             <th scope="col"> Date Created </th>
+            <th scope="col"> Payment Method </th>
             <th scope="col"> Total </th>
             <th scope="col" class="no-sort"></th>
         </thead>
         <tbody>
             {% for order in orders %}
             <tr>
-                <td> {{ order.ingredient_order}} </td>
-                <td> {{ order.qty}} </td>
+                <td class="item-orders">
+                    {% for j in itemOrders %}
+                      {% if j.order_id.pk == order.pk %}
+                        <p>{{ j.ingredient_id.get_name }}: {{ j.quantity }} pc(s) @ {{ j.ingredient_id.get_price }} PHP each = {{ j.getLineTotal }} PHP total</p>
+                      {% endif %}
+                      <br>
+                    {% endfor %}
+                </td>
                 <td> {{ order.ordered_at}} </td>
+                <td> {{ order.payment_mode}} </td>
                 <td> {{ order.total}} </td>
                 <td>
                     <a href="{%  url 'update_order' order.pk %}">

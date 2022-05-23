@@ -38,6 +38,11 @@ nav a {
     align-items: center;
 }
 
+.nav-disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
 nav .nav-link:hover, nav > .activate {
     border-left: #DEE2FD 4px solid;
     color: #DDE2FF;
@@ -220,4 +225,18 @@ input, select {
 
 .list-group-item:last-child {
     margin-bottom: 48px;
-}  
+}
+
+/* Order Forms */
+
+.form-check {
+    position: relative;
+    display: block;
+    padding-left: 1.25rem;
+}
+
+.form-check-input {
+    position: absolute;
+    margin-top: 0.3rem;
+    margin-left: -1.25rem;
+}
