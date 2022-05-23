@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import User
-from orders.models import Order
+from orders.models import Order, ItemOrder
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.utils.dateparse import parse_date
-from django.db.models import Sum, Count
+from django.db.models import Sum
 import csv, datetime
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -52,13 +52,14 @@ def create_account(request):
 def export_salesreport(request):
     range_from = request.POST.get('range_from')
     range_to = request.POST.get('range_to')
-    orders_by_ingredient = Order.objects.values_list('ingredient_order').filter(ordered_at__range=[range_from, str(parse_date(range_to)+datetime.timedelta(days=1))]).annotate(quantity=Sum('qty'), total=Sum('total')).order_by()
+    orders_in_range = Order.objects.values_list('id').filter(ordered_at__range=[range_from, str(parse_date(range_to)+datetime.timedelta(days=1))]).order_by()
+    itemorders_by_ingredient = ItemOrder.objects.values_list('ingredient_id').filter(order_id__in=orders_in_range).annotate(quantity=Sum('quantity'), total=Sum('line_total')).order_by()
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename=sales_report.csv'
 
     writer = csv.writer(response)
     writer.writerow(['Ingredient', 'Quantity', 'Total'])
-    for order in orders_by_ingredient:
+    for order in itemorders_by_ingredient:
         writer.writerow(order)
     return response
 
