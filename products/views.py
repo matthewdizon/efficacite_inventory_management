@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from ingredients.models import Ingredient
 from django.contrib import messages
-
+from django.forms.formsets import formset_factory, BaseFormSet
+from .forms import ProductForm, ProductIngredientForm
 
 def home(request):
     products = Product.objects.all()
@@ -10,42 +11,41 @@ def home(request):
     return render(request, 'products/index.html', context)
 
 def add_product(request):
-    ingredients_objects = Ingredient.objects.all()
-    context = {'ingredients':ingredients_objects}
-    
-    if(request.method=="POST"):
-        product_name = request.POST.get('product_name')
-        description = request.POST.get('description')
-        price = request.POST.get('price')
-        created_at = request.POST.get('date')
-        ingredient_ids = request.POST.getlist('ingredients')
-        
-        ingredients = Ingredient.objects.filter(pk__in=ingredient_ids)
-        print(ingredients)
+    ProductIngredientFormSet = formset_factory(ProductIngredientForm, formset=BaseFormSet)
+    if(request.method=='POST'):
+        product_form = ProductForm(request.POST)
+        product_ingredient_formset = ProductIngredientFormSet(request.POST)
 
-        try:
-            instance = Product.objects.create(
-                name=product_name,
-                description=description,
-                price=price,
-                created_at=created_at,
-            )
+        if product_form.is_valid() and product_ingredient_formset.is_valid():
+            product_name = product_form.cleaned_data.get('name')
+            product_desc = product_form.cleaned_data.get('description')
+            product_price = product_form.cleaned_data.get('price')
             
-            instance.ingredients.add(*ingredients)
+            product = Product.objects.create(
+                name = product_name,
+                description = product_desc,
+                price = product_price,
+            )
 
-            # message="Product created successfully"
-            # return redirect(f"/foods?message={message}")
-            return redirect(f"/products")
-
-        except Exception as e:
-            message = e
-            context = {'ingredients':ingredients_objects, 'message':message}
-            print(context)
-            return render(request, 'products/add_product.html', context)
+            product_ingredients = []
+            for product_ingredient in product_ingredient_formset:
+                ingredient = product_ingredient.cleaned_data.get('ingredient')
+                qty = product_ingredient.cleaned_data.get('qty')
+                product_ingredients.append(ProductIngredient(product=product, ingredient=ingredient, qty=qty))
+            
+            ProductIngredient.objects.bulk_create(product_ingredients)
 
     else:
-        return render(request, 'products/add_product.html', context)
-    
+        product_form = ProductForm()
+        product_ingredient_formset = ProductIngredientFormSet()
+
+    context = {
+        'product_form': product_form,
+        'product_ingredient_formset': product_ingredient_formset,
+    }
+
+    return render(request, 'products/add_product.html', context) 
+
 def view_product(request, pk):
     product = get_object_or_404(Product, pk=pk)
     if request.GET.get('message') == None:

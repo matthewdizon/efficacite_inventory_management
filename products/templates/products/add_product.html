@@ -1,6 +1,8 @@
 {% extends 'main_app/base.html' %}
 
 {% block content %}
+{% load static %}
+
 <div class="card w-75">
     <div class="card-header">
         Enter Product Details: 
@@ -9,33 +11,77 @@
         <div class="d-flex flex-row mt-2">
             <div class="form-group w-50">
                 <label for="name" > Product Name: </label>
-                <input type="text" class="form-control" id="product_name" name="product_name" required>
+                {{ product_form.name }}
+                {% if product_form.name.errors %}
+                    {% for error in product_form.name.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                {% endif %}
             </div>
 
             <div class="form-group w-50 mx-4">
                 <label for="name"> Description: </label>
-                <input type="text" class="form-control" id="description" name="description" required>
+                {{ product_form.description }}
+                {% if product_form.description.errors %}
+                    {% for error in product_form.description.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
 
         <div class="d-flex flex-row">
             <div class="form-group w-50">
                 <label for="name"> Price (₱): </label>
-                <input type="number" min="1" class="form-control" id="price" name="price" required>
+                {{ product_form.price }}
+                {% if product_form.price.errors %}
+                    {% for error in product_form.price.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
 
-        <select class="select_field_class" multiple="multiple" id="ingredients" name="ingredients">
-            {% for ingredient in ingredients.all %}
-                <option value="{{ ingredient.pk }}">{{ingredient.name}}</option>
+        {{ product_ingredient_formset.management_form }}
+
+        {% for form in product_ingredient_formset %}
+            <div class="product-ingredient-formset">
+                <label for="name"> Ingredient </label>
+                {{ form.ingredient }}
+                {% if form.ingredient.errors %}
+                    {% for error in form.ingredient.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                {% endif %}
+
+                <label for="name"> Quantity: </label>
+                {{ form.qty }}
+                {% if form.qty.errors %}
+                    {% for error in form.qty.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        {% if product_ingredient_formset.non_form_errors %}
+            {% for error in product_ingredient_formset.non_form_errors %}
+                {{ error|escape }}
             {% endfor %}
-        </select>
+        {% endif %}
 
         <input type="hidden" name="message" value="Food created successfully">
 
         <a href="{% url 'add_product' %}"><button type="submit" class="btn btn-dark-grabgrub float-right mr-4" >Add Product</button></a>
-
     </form>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="{% static 'src/jquery.formset.js' %}"></script>
+    <script>
+        $('.product-ingredient-formset').formset({
+            addText: 'Add Ingredient',
+            deleteText: 'Remove'
+        });
+    </script>
 </div>
 <a href="{% url 'product_index' %}"><button class="btn btn-grabgrub mt-3">Back</button></a>
 {% endblock %}
