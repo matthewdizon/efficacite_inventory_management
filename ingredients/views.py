@@ -2,12 +2,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from suppliers.models import Supplier
 from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='/accounts/login/')
 def home(request):
     ingredients = Ingredient.objects.all()
     context = {"ingredients":ingredients}
     return render(request, 'ingredients/index.html', context)
 
+@login_required(login_url='/accounts/login/')
 def send_notification(request):
     ingredients = Ingredient.objects.all()
     recipients = []
@@ -39,6 +42,7 @@ def send_notification(request):
 
     return render(request, 'ingredients/sent_mail.html', context)
 
+@login_required(login_url='/accounts/login/')
 def add_ingredient(request):
     supplier_objects = Supplier.objects.all()
     context = {'suppliers':supplier_objects}
@@ -82,6 +86,7 @@ def add_ingredient(request):
     else:
         return render(request, 'ingredients/add_ingredient.html', context)
 
+@login_required(login_url='/accounts/login/')
 def update_ingredient(request, pk):
 
     ingredient = get_object_or_404(Ingredient, pk=pk)
@@ -117,11 +122,13 @@ def update_ingredient(request, pk):
     else:
         return render(request, 'ingredients/update_ingredient.html', context)
 
+@login_required(login_url='/accounts/login/')
 def delete_ingredient(request, pk):
     ingredient = Ingredient.objects.get(pk=pk)
     ingredient.delete()
     return redirect(f"/inventory")
 
+@login_required(login_url='/accounts/login/')
 def batch_ingredient(request, pk):
     ingredient = get_object_or_404(Ingredient, pk=pk)
     Quantity = ingredient.current_quantity
@@ -138,6 +145,7 @@ def batch_ingredient(request, pk):
     else:
         return render(request, 'ingredients/batch_ingredient.html', {'ingredient':ingredient})
 
+@login_required(login_url='/accounts/login/')
 def view_ingredient(request, pk):
     ingredient = get_object_or_404(Ingredient, pk=pk)
     if request.GET.get('message') == None:

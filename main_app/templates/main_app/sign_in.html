@@ -13,7 +13,7 @@
                     <!-- <em><h1 class="card-title">Welcome Back!</h1></em> -->
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{% url 'login' %}">{% csrf_token %}
+                    <form method="POST" action="{% url 'sign_in' %}">{% csrf_token %}
                         <div class="login-input-container">
                             <input type="text" class="form-control" id="user" name="user" placeholder="Username" required>
                         </div>

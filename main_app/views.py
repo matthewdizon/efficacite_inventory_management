@@ -7,20 +7,28 @@ from django.http import HttpResponse
 from django.utils.dateparse import parse_date
 from django.db.models import Sum, Count
 import csv, datetime
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
+@login_required(login_url='/accounts/login/')
 def home(request):
     return render(request, 'main_app/index.html')
 
-def login(request):
+def sign_in(request):
     if(request.method=="POST"):
         UN = request.POST.get('user')
         PW = request.POST.get('pass')
         
-        if UN == "UserADMIN" and PW == "GRILLpass":
-            return redirect('index') 
+        user = authenticate(request, username=UN, password=PW)
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+        # if UN == "UserADMIN" and PW == "GRILLpass":
+        #     return redirect('index') 
         else:
             messages.error(request,'Invalid Login Details')
-            return redirect('login') 
+            return redirect('sign_in') 
     else:
         return render(request, 'main_app/sign_in.html')
 
@@ -53,3 +61,7 @@ def export_salesreport(request):
     for order in orders_by_ingredient:
         writer.writerow(order)
     return response
+
+def logout_view(request):
+    logout(request)
+    return redirect('sign_in')

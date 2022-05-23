@@ -4,7 +4,9 @@ from suppliers.models import Supplier
 # from ingredients.models import Ingredient
 from products.models import Product
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='/accounts/login/')
 def home(request):
     allitemorders = ItemOrder.objects.all()
     orders = Order.objects.all()
@@ -12,6 +14,7 @@ def home(request):
     return render(request, 'orders/index.html', context)
 
 
+@login_required(login_url='/accounts/login/')
 def add_order(request):
     if(request.method=="POST"):
         order_objects = Order.objects.all()
@@ -48,6 +51,7 @@ def add_order(request):
         i = Product.objects.all()
         return render(request, 'orders/add_order.html', {'products':i})
 
+@login_required(login_url='/accounts/login/')
 def update_order(request, pk):
     o = get_object_or_404(Order, pk=pk)
     # o_qty = request.POST.get('qty')
@@ -62,6 +66,7 @@ def update_order(request, pk):
     else:
         return render(request, 'orders/update_order.html', {'o': o})
 
+@login_required(login_url='/accounts/login/')
 def delete_order(request, pk):
     order = Order.objects.get(pk=pk)
     order.delete()
@@ -97,6 +102,7 @@ def delete_order(request, pk):
 
 #         return self.render_to_response({'order_formset': formset})
 
+@login_required(login_url='/accounts/login/')
 def confirm_order(request):
 
    all_ingredients = Ingredient.objects.all()
