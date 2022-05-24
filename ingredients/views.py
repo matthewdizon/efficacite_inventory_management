@@ -64,6 +64,7 @@ def add_ingredient(request):
         metric = request.POST.get('metric')
         supplier_id = request.POST.get('supplier')
         expiration_date = request.POST.get('expiration_date')
+        price = request.POST.get('price')
 
         print(supplier_id)
 
@@ -82,6 +83,7 @@ def add_ingredient(request):
                 metric=metric,
                 supplier=supplier[0],
                 expiration_date=expiration_date,
+                price=price,
             )
 
             # instance.suppliers.add(*suppliers)
@@ -113,6 +115,7 @@ def update_ingredient(request, pk):
         supplier_id = request.POST.get('supplier')
         supplier = Supplier.objects.filter(pk=supplier_id)
         expiration_date = request.POST.get('expiration_date')
+        price = request.POST.get('price')
         
         try:
             instance = Ingredient.objects.filter(pk=pk).update(
@@ -123,6 +126,7 @@ def update_ingredient(request, pk):
                 metric=metric,
                 supplier=supplier[0],
                 expiration_date=expiration_date,
+                price=price,
             )
 
             return redirect(f"/inventory")
