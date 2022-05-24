@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="order-buttons">
-                <button id="add-form" class="btn" type="button">Add Another Order</button>
+                <button id="add-form" class="btn" type="button">Add Order</button>
             </div>
             <form method="POST" action="{% url 'confirm_order' %}"> {% csrf_token %}
                 <h4 class="mb-3">Payment Type</h4>
@@ -35,7 +35,7 @@
                   </div>
                   <div class="form-check">
                     <label class="form-check-label" for="debit">Card</label>
-                    <input id="debit" name="payment_method" type="radio" class="form-check-input" value="Credit Card">
+                    <input id="debit" name="payment_method" type="radio" class="form-check-input" value="Card">
                   </div>
                 </div>
                 <input type="hidden" name="complete_order" id="complete_order" value="">  
