@@ -19,6 +19,7 @@ def send_notification(request):
     for x in ingredients:
         print(x.get_quantity_ratio())
         ratio = x.get_quantity_ratio()
+        expiration_priority = x.get_expiration_priority()
         product = x.name
         email = x.supplier.getEmail()
 
@@ -29,17 +30,25 @@ def send_notification(request):
             elif ratio < 1.5:
                 title = f"Benjamin's Grill House | {product} Quantity: HIGH PRIORITY"
                 body = f"{product} should be restocked immediately. Current quantity left is: {x.current_quantity}. Our Quantity Threshold is: {x.quantity_threshold}"
+ 
+        elif expiration_priority.days < 7:
+            if expiration_priority.days >= 4:
+                title = f"Benjamin's Grill House | {product} Expiration Date: MEDIUM PRIORITY"
+                body = f"{product} should be restocked soon. Expiration Date is on: {x.expiration_date}. Total time left before it expires: {expiration_priority}"
+            elif expiration_priority.days <= 3:
+                title = f"Benjamin's Grill House | {product} Expiration Date: HIGH PRIORITY"
+                body = f"{product} should be restocked immediately. Expiration Date is on: {x.expiration_date}. Total time left before it expires: {expiration_priority}"
 
-            send_mail(
+        send_mail(
             title, #Subject
             body, #Body
             'grillhouseapp@gmail.com', #From
             [email], #To
             fail_silently=True,
-            )
+        )
+        
+        recipients.append([email, title, body])
             
-            recipients.append([email, title, body])
-
     return render(request, 'ingredients/sent_mail.html', context)
 
 @login_required(login_url='/accounts/login/')
