@@ -37,7 +37,15 @@
                     {% endif %}
                 {% endif %}
                 <td> {{ ingredient.expiration_date }}</td>
-                <td>{{ ingredient.expiration_date|timeuntil }}</td>
+                {% if ingredient.get_expiration_priority.days >= 7 %}
+                    <td class="quantity-priority-low"> Low ({{ ingredient.get_expiration_priority }})</td>
+                {% elif ingredient.get_expiration_priority.days < 7 %}
+                    {% if ingredient.get_expiration_priority.days >= 4 %}
+                        <td class="quantity-priority-medium"> Medium ({{ ingredient.get_expiration_priority }})</td>
+                    {% elif ingredient.get_expiration_priority.days <= 3 %}
+                        <td class="quantity-priority-high"> High ({{ ingredient.get_expiration_priority }})</td>
+                    {% endif %}
+                {% endif %}
                 <td> {{ ingredient.supplier.name }}</td>
                 <td>
                     <a href="{%  url 'view_ingredient' ingredient.pk %}">

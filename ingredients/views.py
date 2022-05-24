@@ -54,6 +54,7 @@ def add_ingredient(request):
         quantity_threshold = request.POST.get('quantity_threshold')
         metric = request.POST.get('metric')
         supplier_id = request.POST.get('supplier')
+        expiration_date = request.POST.get('expiration_date')
 
         print(supplier_id)
 
@@ -71,6 +72,7 @@ def add_ingredient(request):
                 quantity_threshold=quantity_threshold,
                 metric=metric,
                 supplier=supplier[0],
+                expiration_date=expiration_date,
             )
 
             # instance.suppliers.add(*suppliers)
@@ -101,6 +103,7 @@ def update_ingredient(request, pk):
         metric = request.POST.get('metric')
         supplier_id = request.POST.get('supplier')
         supplier = Supplier.objects.filter(pk=supplier_id)
+        expiration_date = request.POST.get('expiration_date')
         
         try:
             instance = Ingredient.objects.filter(pk=pk).update(
@@ -110,6 +113,7 @@ def update_ingredient(request, pk):
                 quantity_threshold=quantity_threshold,
                 metric=metric,
                 supplier=supplier[0],
+                expiration_date=expiration_date,
             )
 
             return redirect(f"/inventory")
@@ -134,14 +138,20 @@ def batch_ingredient(request, pk):
     Quantity = ingredient.current_quantity
     if(request.method=="POST"):
         batchq = request.POST.get('batch_quantity')
+        expiration_date = request.POST.get('expiration_date')
         newquantity = int(batchq) + int(Quantity)
         #try: 
         #    Ingredient.objects.get(name=foodname)
         #    messages.error(request,'Food already exist')
         #    return redirect('view_food')
         #except:
-        Ingredient.objects.filter(pk=pk).update(current_quantity = str(newquantity))
-        return redirect('ingredient_index')
+        try:
+            Ingredient.objects.filter(pk=pk).update(current_quantity = str(newquantity), expiration_date=expiration_date)
+            return redirect('ingredient_index')
+        except Exception as e:
+            print(expiration_date)
+            print(e)
+            return render(request, 'ingredients/batch_ingredient.html', {'ingredient':ingredient})
     else:
         return render(request, 'ingredients/batch_ingredient.html', {'ingredient':ingredient})
 

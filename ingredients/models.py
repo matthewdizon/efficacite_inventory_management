@@ -1,6 +1,7 @@
 from django.db import models
 from suppliers.models import Supplier
 from django.utils.timezone import now
+from datetime import datetime, timezone
 
 METRIC_CHOICES = (
     ('kg','kilogram'),
@@ -34,4 +35,7 @@ class Ingredient(models.Model):
     def get_quantity_ratio(self):
         return self.current_quantity / self.quantity_threshold
 
- 
+    def get_expiration_priority(self):
+        d0 = datetime.now(timezone.utc)
+        delta = self.expiration_date - d0
+        return delta
