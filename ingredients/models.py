@@ -39,3 +39,15 @@ class Ingredient(models.Model):
         d0 = datetime.now(timezone.utc)
         delta = self.expiration_date - d0
         return delta
+
+class IngredientBatch(models.Model):
+   ingredient_id = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+   quantity = models.FloatField(max_length=250)
+   expiration_date = models.DateTimeField(default=now)
+   created_at = models.DateTimeField(default=now)
+   
+   def get_ingredient_id(self):
+       return self.ingredient_id
+
+   def __str__(self):
+       return f"{self.pk}: {self.ingredient_id}"

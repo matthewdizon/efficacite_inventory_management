@@ -1,0 +1,31 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+<div class="products-hero">
+    <div class="container">
+        <h1 class="jumbotron-heading">Batches</h1>
+        <p>A table of all batches</p>
+    </div>
+</div>
+
+<div class="col-12">
+    <table class="table table-striped" id="food_table">
+        <thead>
+            <th scope="col"> Date Added </th>
+            <th scope="col"> Ingredient Name </th>
+            <th scope="col"> Quantity Added </th>
+            <th scope="col"> Updated Expiration Date </th>
+        </thead>
+        <tbody>
+            {% for batch in batches %}
+            <tr>
+                <td> {{ batch.created_at }} </td>
+                <td> {{ batch.ingredient_id }} </td>
+                <td> {{ batch.quantity }} </td>
+                <td> {{ batch.expiration_date }} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

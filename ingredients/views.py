@@ -146,6 +146,11 @@ def batch_ingredient(request, pk):
         #    return redirect('view_food')
         #except:
         try:
+            instance = IngredientBatch.objects.create(
+                ingredient_id=ingredient,
+                quantity=batchq,
+                expiration_date=expiration_date,
+            )
             Ingredient.objects.filter(pk=pk).update(current_quantity = str(newquantity), expiration_date=expiration_date)
             return redirect('ingredient_index')
         except Exception as e:
@@ -154,6 +159,11 @@ def batch_ingredient(request, pk):
             return render(request, 'ingredients/batch_ingredient.html', {'ingredient':ingredient})
     else:
         return render(request, 'ingredients/batch_ingredient.html', {'ingredient':ingredient})
+
+def view_batch_updates(request):
+    batches = IngredientBatch.objects.all()
+    context = {"batches":batches}
+    return render(request, 'ingredients/view_batches.html', context)
 
 @login_required(login_url='/accounts/login/')
 def view_ingredient(request, pk):
