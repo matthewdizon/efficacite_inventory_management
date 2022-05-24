@@ -232,11 +232,55 @@ input, select {
 .form-check {
     position: relative;
     display: block;
-    padding-left: 1.25rem;
 }
 
 .form-check-input {
     position: absolute;
+    width: auto;
     margin-top: 0.3rem;
-    margin-left: -1.25rem;
+    margin-left: 16px;
+}
+
+.item-orders{
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 24px 0;
+}
+
+.payment-container {
+    display: flex;
+    flex-direction: column;
+    margin: 16px 0;    
+}
+
+#ord {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#ord > div {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 50%;
+    /* background-color: red;
+    display: flex;
+    text-align: center;
+    align-items: center; */
+}
+
+hr {
+    border-top: 1px solid black;
+    width: 100%;
+}
+
+.btn-100 {
+    width: 100%;
+}
+
+.btn-secondary {
+    border: 2px solid #990202;
+    color: #990202;
+    background-color: transparent;
 }

@@ -23,26 +23,29 @@
                     </select>
                 </div>
             </div>
-            <div class="order-buttons">
-                <button id="add-form" class="btn" type="button">Add Order</button>
+            <div class="order-buttons" style={{ "width: 100%" }}>
+                <button id="add-form" class="btn btn-secondary btn-100" type="button">Add Order</button>
             </div>
-            <form method="POST" action="{% url 'confirm_order' %}"> {% csrf_token %}
+            <form method="POST" action="{% url 'confirm_order' %}" style={{ "text-align:center" }}> {% csrf_token %}
                 <h4 class="mb-3">Payment Type</h4>
-                <div class="my-3">
+                <div class="payment-container my-3">
                   <div class="form-check">
                     <label class="form-check-label" for="credit">Cash </label>
                     <input id="credit" name="payment_method" type="radio" class="form-check-input" value="Cash" required>
                   </div>
                   <div class="form-check">
                     <label class="form-check-label" for="debit">Card</label>
-                    <input id="debit" name="payment_method" type="radio" class="form-check-input" value="Card">
+                    <input id="debit" name="payment_method" type="radio" class="form-check-input" value="Card" required>
                   </div>
                 </div>
                 <input type="hidden" name="complete_order" id="complete_order" value="">  
                 <input type="hidden" name="status" id="status" value="Created">  
-                <button type="submit" class="btn btn-primary" id="sb">Submit Order</button>
+                <button type="submit" class="btn btn-100" id="sb">Submit Order</button>
             </form>
-            <div>
+            <div style={{ "text-align:center" }}>
+                <h3>Order Summary</h3>
+                <button class="btn btn-100 btn-secondary" id="rb">Clear Orders</button>
+                <h4>Total: </h4>
                 <ul class="list-group mb-3" id="ord">
                 </ul>
             </div>
@@ -53,6 +56,7 @@
 <script>
     let addButton = document.querySelector("#add-form")
     let submitButton = document.querySelector("#sb")
+    let removeButton = document.querySelector("#rb")
 
     let orderDetails = document.querySelector("#ord")
     let orders = document.querySelector("#ord div")
@@ -60,6 +64,7 @@
     
     addButton.addEventListener('click', addDetails)
     submitButton.addEventListener('click', completeOrder)
+    removeButton.addEventListener('click', deleteChild)
 
     // function addForm(e){
     //     console.log(orderForm)
@@ -86,15 +91,18 @@
             let currQuantity = document.querySelector(".quantity-group")
             // orderDetails.append(`Ordered ${quantity}pcs of ${ingredient}`)
             let container = document.createElement('div')
-            container.innerHTML += "--------------"
+            let ingredient_and_price = ingredient.value.split(" @ ") 
+            let price = ingredient_and_price[1]
+
+            container.innerHTML += "<hr>"
             container.innerHTML += "<br>"
-            container.innerHTML += "<div>"
             container.innerHTML += `<small>Ingredient & Price (PHP):</small>`
             container.innerHTML += `<p class="oingdt">${ingredient.value}</p>`
             container.innerHTML += `<small>Quantity (pcs):</small>`
             container.innerHTML += `<p class="oqty">${quantity.value}</p>`
-            container.innerHTML += "</div>"
-            container.innerHTML += "<br>"
+            container.innerHTML += `<small>Total (PHP)</small>`
+            container.innerHTML += `<p class="oqty">${parseInt(quantity.value) * parseInt(price)}</p>`
+            container.innerHTML += "<hr>"
             orderDetails.appendChild(container)
 
             quantity.value = ""
@@ -119,6 +127,11 @@
             let comb = [oqty, oingredient, oprice]
             complete_order.value = complete_order.value + comb + "-"
         }
+    }
+
+    function deleteChild(e) {
+        var e = document.querySelector("#ord");
+        e.innerHTML = "";
     }
 </script>
 {% endblock %}
