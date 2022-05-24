@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import User
 from orders.models import Order, ItemOrder
+from ingredients.models import Ingredient
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.utils.dateparse import parse_date
@@ -60,6 +61,10 @@ def export_salesreport(request):
     writer = csv.writer(response)
     writer.writerow(['Ingredient', 'Quantity', 'Total'])
     for order in itemorders_by_ingredient:
+        ingredient = Ingredient.objects.get(pk=order[0])
+        temp_order = list(order)
+        temp_order[0] = ingredient.name
+        order = tuple(temp_order)
         writer.writerow(order)
     return response
 
