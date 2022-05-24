@@ -31,14 +31,15 @@
                 <div class="my-3">
                   <div class="form-check">
                     <label class="form-check-label" for="credit">Cash </label>
-                    <input id="credit" name="payment_method" type="radio" class="form-check-input" value=1 required>
+                    <input id="credit" name="payment_method" type="radio" class="form-check-input" value="Cash" required>
                   </div>
                   <div class="form-check">
                     <label class="form-check-label" for="debit">Card</label>
-                    <input id="debit" name="payment_method" type="radio" class="form-check-input" value=2>
+                    <input id="debit" name="payment_method" type="radio" class="form-check-input" value="Credit Card">
                   </div>
                 </div>
                 <input type="hidden" name="complete_order" id="complete_order" value="">  
+                <input type="hidden" name="status" id="status" value="Created">  
                 <button type="submit" class="btn btn-primary" id="sb">Submit Order</button>
             </form>
             <div>

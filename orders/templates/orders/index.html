@@ -16,6 +16,7 @@
             <th scope="col"> Date Created </th>
             <th scope="col"> Payment Method </th>
             <th scope="col"> Total </th>
+            <th scope="col"> Status </th>
             <th scope="col" class="no-sort"></th>
         </thead>
         <tbody>
@@ -32,6 +33,7 @@
                 <td> {{ order.ordered_at}} </td>
                 <td> {{ order.payment_mode}} </td>
                 <td> {{ order.total}} </td>
+                <td> {{ order.status}} </td>
                 <td>
                     <a href="{%  url 'update_order' order.pk %}">
                         <button class="btn btn-dark-grabgrub">Update</button>

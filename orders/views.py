@@ -69,6 +69,18 @@ def update_order(request, pk):
 @login_required(login_url='/accounts/login/')
 def delete_order(request, pk):
     order = Order.objects.get(pk=pk)
+    allItemOrders = ItemOrder.objects.all()
+
+    for i in allItemOrders:
+        if order.pk == i.order_id.pk:
+            ingredient_object = i.ingredient_id
+            quantity = i.quantity
+            
+            # Updating current quantity of product
+            new_qty = int(ingredient_object.current_quantity) + quantity
+            ingredient_object.current_quantity = new_qty
+            ingredient_object.save()
+    
     order.delete()
     return redirect(f"/orders")
 
@@ -111,6 +123,7 @@ def confirm_order(request):
       try:
          ptype = request.POST.get("payment_method")
          items = request.POST.get("complete_order")
+         status = request.POST.get("status")
 
          # Do nothing if no items were added in the order
          if len(items) == 0:
@@ -131,7 +144,7 @@ def confirm_order(request):
                 total += price*quantity
 
             print(total)
-            ord = Order.objects.create(total=total, payment_mode=ptype, status="Created")
+            ord = Order.objects.create(total=total, payment_mode=ptype, status=status)
 
             for i in items_list:
                # Identified PK and Quantity by splitting the values
