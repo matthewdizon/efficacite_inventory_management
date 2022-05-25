@@ -42,7 +42,7 @@ def send_notification(request):
         send_mail(
             title, #Subject
             body, #Body
-            'grillhouseapp@gmail.com', #From
+            'grillhouseapp2@gmail.com', #From
             [email], #To
             fail_silently=True,
         )
